@@ -6,37 +6,70 @@ using namespace std;
 class Solution {
   public:
     // Function to detect cycle in an undirected graph.
+    bool dfs(int p,int i,vector<int>&vis,vector<int>adj[])
+    {
+        vis[i]=1;
+        for (auto it:adj[i])
+        {
+            if (!vis[it])
+            {
+                bool a=dfs(i,it,vis,adj);
+                if (a)
+                return true;
+            }
+            else if (p!=it)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     
     bool isCycle(int n, vector<int> adj[]) {
+        // BFS APPROACH 
+        // vector<int>vis(n,0);
+        // for (int i=0;i<n;i++)
+        // {
+        //     if (!vis[i])
+        //     {
+        //         queue<pair<int,int>>q;
+        //         q.push({i,-1});
+        //         vis[i]=1;
+        //         while (!q.empty())
+        //         {
+        //             int node =q.front().first;
+        //             int p=q.front().second;
+        //             q.pop();
+        //             for (auto it:adj[node])
+        //             {
+        //                 if (!vis[it])
+        //                 {
+        //                     vis[it]=1;
+        //                     q.push({it,node});
+        //                 }
+        //                 else if (vis[it] && p!=it)
+        //                 {
+        //                     return true;
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // return false;
+        
+        
+        // DFS APPROACH 
         vector<int>vis(n,0);
         for (int i=0;i<n;i++)
         {
             if (!vis[i])
             {
-                queue<pair<int,int>>q;
-                q.push({i,-1});
-                vis[i]=1;
-                while (!q.empty())
-                {
-                    int node =q.front().first;
-                    int p=q.front().second;
-                    q.pop();
-                    for (auto it:adj[node])
-                    {
-                        if (!vis[it])
-                        {
-                            vis[it]=1;
-                            q.push({it,node});
-                        }
-                        else if (vis[it] && p!=it)
-                        {
-                            return true;
-                        }
-                    }
-                }
+                bool tmp=dfs(-1,i,vis,adj);
+                if (tmp)
+                return 1;
             }
         }
-        return false;
+        return 0;
         // Code here
     }
 };
