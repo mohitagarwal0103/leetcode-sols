@@ -36,10 +36,10 @@ class Solution {
         {
             s[i]=1;
         }
-        else
-        {
-            s[i]=0;
-        }
+        // else
+        // {
+        //     s[i]=0;
+        // }
         return f;
     }
     vector<int> eventualSafeNodes(int n, vector<int> adj[]) {
