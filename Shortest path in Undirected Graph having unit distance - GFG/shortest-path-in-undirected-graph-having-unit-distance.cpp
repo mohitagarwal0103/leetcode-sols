@@ -32,8 +32,9 @@ class Solution {
                     if (dist[it]==INT_MAX)
                     {
                         q.push({it,d+1});
+                        dist[it]=d+1;
                     }
-                    dist[it]=d+1;
+                    
                     // q.push({it,dist[it]});
                 }
                 
