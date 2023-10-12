@@ -10,14 +10,38 @@ class Solution
     //from the source vertex S.
     vector <int> dijkstra(int v, vector<vector<int>> adj[], int s)
     {
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        // priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        // vector<int>dist(v,INT_MAX);
+        // dist[s]=0;
+        // pq.push({0,s});
+        // while (!pq.empty())
+        // {
+        //     pair<int,int>p=pq.top();
+        //     pq.pop();
+        //     int d=p.first;
+        //     int node =p.second;
+        //     for (auto it:adj[node])
+        //     {
+        //         int n2=it[0];
+        //         int w=it[1];
+        //         if (dist[n2]>dist[node]+w)
+        //         {
+        //             dist[n2]=dist[node]+w;
+        //             pq.push({dist[n2],n2});
+        //         }
+        //     }
+        // }
+        // return dist;
+        
+        // /Met -2 
+        set<pair<int,int>>st;
         vector<int>dist(v,INT_MAX);
         dist[s]=0;
-        pq.push({0,s});
-        while (!pq.empty())
+        st.insert({0,s});
+        while (!st.empty())
         {
-            pair<int,int>p=pq.top();
-            pq.pop();
+            pair<int,int>p=*(st.begin());
+            st.erase(p);
             int d=p.first;
             int node =p.second;
             for (auto it:adj[node])
@@ -26,12 +50,18 @@ class Solution
                 int w=it[1];
                 if (dist[n2]>dist[node]+w)
                 {
+                    if (dist[n2]!=INT_MAX)
+                    {
+                        st.erase({dist[n2],n2});
+                    }
                     dist[n2]=dist[node]+w;
-                    pq.push({dist[n2],n2});
+                    st.insert({dist[n2],n2});
                 }
             }
         }
         return dist;
+        
+        
         // Code here
     }
 };
