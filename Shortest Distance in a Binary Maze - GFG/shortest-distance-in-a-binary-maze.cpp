@@ -17,11 +17,11 @@ class Solution {
     int cr[4]={0,-1,0,1};
     vector<vector<int>>dist(n,vector<int>(m,INT_MAX));
         dist[src.first][src.second]=0;
-        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>>pq;
+        queue<pair<int,pair<int,int>>>pq;
         pq.push({0,src});
         while (!pq.empty())
         {
-            pair<int,pair<int,int>>p=pq.top();
+            pair<int,pair<int,int>>p=pq.front();
             pq.pop();
             int d=p.first;
             int si=p.second.first;
