@@ -33,6 +33,10 @@ class Solution {
                 if (r>=0 && r<n && c>=0 && c<m && arr[r][c]==1 && dist[r][c]>d+1)
                 {
                     dist[r][c]=d+1;
+                    if (r==dst.first && c==dst.second)
+                    {
+                        return d+1;
+                    }
                     pq.push({dist[r][c],{r,c}});
                 }
             }
