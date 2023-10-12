@@ -14,15 +14,20 @@ class Solution {
     pair<int,int>dst={n-1,m-1};
     vector<vector<int>>dist(n,vector<int>(m,INT_MAX));
         dist[src.first][src.second]=0;
-        queue<pair<int,pair<int,int>>>pq;
+        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>>pq;
         pq.push({0,src});
         while (!pq.empty())
         {
-            pair<int,pair<int,int>>p=pq.front();
+            pair<int,pair<int,int>>p=pq.top();
             pq.pop();
             int d=p.first;
             int si=p.second.first;
             int se=p.second.second;
+            if (si==n-1 && se==m-1)
+           { 
+            //   cout<<si<<" "<<se<<" "<<d<<endl;
+               return d;
+           }
             for (int k=0;k<4;k++)
             {
                 int r=si+dr[k];
@@ -30,6 +35,7 @@ class Solution {
                 if (r>=0 && r<n && c>=0 && c<m && dist[r][c]>max(d,abs(arr[si][se]-arr[r][c])))
                 {
                     dist[r][c]=max(d,abs(arr[si][se]-arr[r][c]));
+                    // cout<<r<<" "<<c<<" "<<dist[r][c]<<endl;
                     pq.push({dist[r][c],{r,c}});
                 }
             }
@@ -40,6 +46,7 @@ class Solution {
         // code here
     }
 };
+
 
 //{ Driver Code Starts.
 int main() {
