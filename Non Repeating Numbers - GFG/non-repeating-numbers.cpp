@@ -6,18 +6,43 @@ using namespace std;
 class Solution
 {
 public:
-    vector<int> singleNumber(vector<int> v) 
+    vector<int> singleNumber(vector<int>arr) 
     {
-        sort(v.begin(),v.end());
-        vector<int>ans;
-        for (int i=0;i<v.size();i++)
+        int x=0,n=arr.size();
+        for (int i=0;i<n;i++)
         {
-            if (v[i]!=v[i+1])
-            ans.push_back(v[i]);
-            else
+            x=x^arr[i];
+        }
+        int i=0;
+        while (i<32){
+            if ((1<<i)&x)
+            {
+                break;
+            }
             i++;
         }
-        return ans;
+        int a=(1<<i);
+        // cout<<a<<endl;
+        int xa=0,xb=0;
+        for (int j=0;j<n;j++)
+        {
+            if (arr[j]&(a))
+            {
+                xa^=arr[j];
+            }
+            else
+            {
+                xb^=arr[j];
+            }
+        }
+        if (xa<xb)
+        {
+            return {xa,xb};
+        }
+        else
+        {
+            return {xb,xa};
+        }
         // Code here.
     }
 };
